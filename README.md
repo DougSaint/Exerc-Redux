@@ -1,0 +1,2 @@
+# Exerc-Redux
+Exercicio redux 
