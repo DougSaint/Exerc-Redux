@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Select from '../components/Select';
+import { setPersonalForm } from '../redux/actions/index';
 
 const UF_LIST = [
   'Rio de Janeiro',
@@ -35,12 +36,21 @@ class PersonalForm extends Component {
     this.setState({ [name]: value });
   }
 
+  handleSubmit = (e) => {
+    const { dispatch, history } = this.props;
+    e.preventDefault();
+    dispatch(setPersonalForm({
+      ...this.state,
+    }))
+    history.push('/professionalform');
+  }
+
   render() {
     const { name, email, cpf, address, city, uf } = this.state;
 
     return (
       <form
-        onSubmit={ () => console.log('Ao clicar, envie a informação do formulário') }
+        onSubmit={ this.handleSubmit }
       >
         <h1 className="title">Informações Pessoais</h1>
         <Input
@@ -100,4 +110,4 @@ class PersonalForm extends Component {
   }
 }
 
-export default PersonalForm;
+export default connect()(PersonalForm);

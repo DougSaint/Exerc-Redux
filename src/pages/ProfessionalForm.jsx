@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import Input from '../components/Input';
 import TextArea from '../components/TextArea';
 import Button from '../components/Button';
+import { setProfessionalForm } from '../redux/actions/index';
 
 class ProfessionalForm extends Component {
   constructor() {
@@ -20,11 +21,20 @@ class ProfessionalForm extends Component {
     this.setState({ [name]: value });
   }
 
+  handleSubmit = (e) => {
+    const { dispatch, history } = this.props;
+    e.preventDefault();
+    dispatch(setProfessionalForm({
+      ...this.state,
+    }))
+    history.push('/formdisplay');
+  }
+
   render() {
     const { curriculum, job, description } = this.state;
     return (
       <form
-        onSubmit={ () => console.log('Envia as informações para a store') }
+        onSubmit={ this.handleSubmit }
       >
         <h1 className="title">Informações Profissionais</h1>
         <TextArea
@@ -61,4 +71,4 @@ class ProfessionalForm extends Component {
   }
 }
 
-export default ProfessionalForm;
+export default connect()(ProfessionalForm);

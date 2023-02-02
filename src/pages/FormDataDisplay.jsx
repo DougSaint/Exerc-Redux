@@ -1,61 +1,65 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+  const mapStateToProps = (state) => {
+    return {...state};
+  }
 
 class FormDataDisplay extends Component {
   render() {
-    // Recupere as informações do seu estado criado no Redux
+    const {
+      professionalData,
+      personalData,
+    } = this.props;
+
     return (
       <section>
         <h1>Dados Enviados</h1>
         <div>
           Nome:
-          {/* { name } */}
+          { personalData.name }
         </div>
         <div>
           Email:
-          {/* { email } */}
+          { personalData.email }
         </div>
         <div>
           CPF:
-          {/* { cpf } */}
+          { personalData.cpf }
         </div>
         <div>
           Endereço:
-          {/* { address } */}
+          { personalData.address }
         </div>
         <div>
           Cidade:
-          {/* { city } */}
+          { personalData.city }
         </div>
         <div>
           Estado:
-          {/* { uf } */}
+          { personalData.uf }
         </div>
         <div>
           Currículo:
-          {/* { curriculum } */}
+          { professionalData.curriculum }
         </div>
         <div>
           Cargo:
-          {/* { job } */}
+          { professionalData.job }
         </div>
         <div>
           Descrição do cargo:
-          {/* { description } */}
+          { professionalData.description }
         </div>
       </section>
     );
   }
 }
 
-// FormDataDisplay.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   description: PropTypes.string.isRequired,
-//   job: PropTypes.string.isRequired,
-//   curriculum: PropTypes.string.isRequired,
-//   uf: PropTypes.string.isRequired,
-//   city: PropTypes.string.isRequired,
-//   address: PropTypes.string.isRequired,
-// };
+FormDataDisplay.propTypes = {
+  personalData: PropTypes.instanceOf(Object),
+  professionalData: PropTypes.instanceOf(Object),
+}.isRequired;
 
-export default FormDataDisplay;
+export default connect(mapStateToProps)(FormDataDisplay);
